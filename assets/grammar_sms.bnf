@@ -1,0 +1,33 @@
+#BNF+IAT 1.0 UTF-8;
+!grammar smsgr;
+!slot <contact>;
+!slot <optsend>;
+!slot <optcancel>;
+!slot <cmdsms>;
+!slot <smspre>;
+!slot <smsgei>;
+!ref <dict>;
+
+!start <smsaction>;
+<smsaction>: <smsaction2>|<smsaction3>|<smsaction4>|<smsaction5>|<smsaction6>;
+
+/* 操作命令：发送 */
+<smsaction2>:<optsend>;
+/* 操作命令：取消 */
+<smsaction3>:<optcancel>;
+/* 纯命令 */
+<smsaction4>: [<smspre>]<cmdsms>;
+/* 短信命令1 */
+<smsaction5>: <smsgei><contact><cmdsms>[<dict>];
+/* 短信命令2 */
+<smsaction6>: <cmdsms><smsgei><contact>[<dict>];
+
+/* 词典槽定义 */
+<contact>:联系人名称;
+<optsend>:确定|确认|发送|接受|发送短信|短信发送;
+<optcancel>:取消|不发送|别发送|取消发送|取消发送短信;
+<smspre>:我要|帮我|请|我想;
+<cmdsms>: 发短信|发一条短信|发送短信|短信|短信息|编短信|编辑短信;
+<smsgei>: 给;
+<dict>:wfst;
+
